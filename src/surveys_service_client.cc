@@ -4,7 +4,7 @@
 SurveysServiceClient::SurveysServiceClient() { }
 SurveysServiceClient::~SurveysServiceClient() { }
 
-void SurveysServiceClient::send_data(
+bool SurveysServiceClient::send_data(
     const std::list<Survey>& surveys) const {
     std::cout << "[";
     for(auto itr = surveys.begin();
@@ -16,9 +16,10 @@ void SurveysServiceClient::send_data(
         std::cout << *itr;
     }
     std::cout << "]" << std::endl;
+    return true;
 }
 
-void SurveysServiceClient::send_data(
+bool SurveysServiceClient::send_data(
     const std::list<SurveyError>& survey_errors) const {
     std::cout << "[";
     for(auto itr = survey_errors.begin();
@@ -30,6 +31,6 @@ void SurveysServiceClient::send_data(
         std::cout << *itr;
     }
     std::cout << "]" << std::endl;
-
+    return true;
 }
 

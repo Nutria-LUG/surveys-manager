@@ -1,0 +1,12 @@
+*~
+./src/**/*~
+*.in
+aclocal.m4
+autom4te.cache/
+autoscan.log
+configure
+depcomp
+install-sh
+missing
+test-driver
+build/

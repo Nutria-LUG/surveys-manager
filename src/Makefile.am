@@ -1,12 +1,13 @@
 bin_PROGRAMS = surveys-manager
 surveys_manager_SOURCES = \
 	main.cc \
+	curl_service_connector.cc\
 	survey.cc \
 	surveys_provider.cc\
 	surveys_service_client.cc \
 	configuration.cc
 
-surveys_manager_LDADD = -lsqlite3
+surveys_manager_LDADD = -lsqlite3 -lcurl
 surveys_manager_CXXFLAGS = -std=c++14
 # Some usefull notes are reported below.
 # 01. To add an existing library use -l options

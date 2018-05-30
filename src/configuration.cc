@@ -55,9 +55,13 @@ std::istream& operator>>(std::istream& is,
         posEqual = line.find('=');
         std::string key = __CONFIGURATION__INTERNAL__NS__::trim(
             line.substr(0, posEqual));
+        
+        std::string value = line.substr(posEqual + 1);
         if (key == DATABASE_PATH_KEY) {
-            std::string value = line.substr(posEqual + 1);
             config.database_path =
+                __CONFIGURATION__INTERNAL__NS__::trim(value);
+        } else if(key == SERVICE_ADDRESS_KEY) {
+            config.service_address =
                 __CONFIGURATION__INTERNAL__NS__::trim(value);
         }
     }    

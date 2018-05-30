@@ -30,6 +30,8 @@
 
 #include <list>
 #include "survey.hh"
+#include "curl_service_connector.hh"
+
 
 /*!
  * \brief This is the service celient used to send errors and surveys
@@ -43,7 +45,8 @@ public:
     /*!
      * \brief Default constructor.
      */
-    SurveysServiceClient();
+    SurveysServiceClient(CurlServiceConnector *service_connector);
+
     /*!
      * \brief Virtual detructor.
      */
@@ -69,10 +72,14 @@ public:
      */
     bool send_data(const std::list<SurveyError>& survey_errors) const;
 private:
+    SurveysServiceClient();
     /*! Private not implemented. */
     SurveysServiceClient(const SurveysServiceClient&);
     /*! Private not implemented. */
     SurveysServiceClient(const SurveysServiceClient&&);
+
+    const std::string _SEND_DATA_METHOD = "SaveData";
+    CurlServiceConnector *_service_connector;
 };
 
 #endif

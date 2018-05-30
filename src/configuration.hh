@@ -56,7 +56,8 @@ std::string get_configuration_file_path();
  * This macro represent the key value of the data base path in the
  * configuration file.
  */
-#define DATABASE_PATH_KEY "data_base_path"
+#define DATABASE_PATH_KEY    "data_base_path"
+#define SERVICE_ADDRESS_KEY  "service_address"
 
 /*!
  * Data struct that contains the configuration informations.
@@ -67,7 +68,9 @@ struct ConfigurationData {
      * the log operations.
      */
     std::string database_path;
-    
+
+    std::string service_address;
+
     /*! Default constructor. */
     ConfigurationData();
 

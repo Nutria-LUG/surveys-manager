@@ -32,6 +32,7 @@
 #include <iterator>
 #include "configuration.hh"
 #include "surveys_provider.hh"
+#include "curl_service_connector.hh"
 #include "surveys_service_client.hh"
 
 const unsigned int TOP = 10;
@@ -64,7 +65,8 @@ void send_errors(SqliteSurveysProvider& provider,
 
 int main() {    
     auto configuration = get_configuration();
-    SurveysServiceClient service_client;
+    CurlServiceConnector connector(configuration.service_address);
+    SurveysServiceClient service_client(&connector);
     SqliteSurveysProvider provider(configuration.database_path);
     try {
         send_surveys(provider, service_client);

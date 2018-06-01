@@ -1,5 +1,4 @@
 #include <sstream>
-#include <iostream>
 #include "surveys_service_client.hh"
 
 SurveysServiceClient::SurveysServiceClient(
@@ -7,6 +6,7 @@ SurveysServiceClient::SurveysServiceClient(
     : _service_connector(service_connector) { }
 
 SurveysServiceClient::~SurveysServiceClient() { }
+#include<iostream>
 
 bool SurveysServiceClient::send_data(
     const std::list<Survey>& surveys) const {
@@ -16,7 +16,7 @@ bool SurveysServiceClient::send_data(
         itr != surveys.end();
         ++itr) {
         if(itr != surveys.begin()) {
-            ss << ",\n";
+            ss << ",";
         }
         ss << *itr;
     }
@@ -35,14 +35,12 @@ bool SurveysServiceClient::send_data(
         itr != survey_errors.end();
         ++itr) {
         if(itr != survey_errors.begin()) {
-            ss << ",\n";
+            ss << ",";
         }
         ss << *itr;
     }
     ss << "]";
-
     return _service_connector ->
         post_call(_SEND_ERROR_METHOD, ss.str()) == SAVED_DATA_CODE;
-
 }
 

@@ -56,7 +56,7 @@ void send_errors(SqliteSurveysProvider& provider,
     std::list<SurveyError> errors;
     errors = provider.get_errors(TOP);
     while(errors.size() > 0) {
-        if(service_client.send_data(errors)) {
+        if(!service_client.send_data(errors)) {
             throw "Cannot save errors";
         }
         provider.remove_data(errors);

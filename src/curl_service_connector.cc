@@ -48,7 +48,6 @@ long int CurlServiceConnector::get_call(
     __CURL_SERVICE_CONNECTOR_INTERNAL__::auto_curl curl;    
     std::string url = _address + "/" + method + "?" + params; 
 
-    curl_easy_setopt(curl.ptr, CURLOPT_CUSTOMREQUEST, "GET");
     return __CURL_SERVICE_CONNECTOR_INTERNAL__::perform_call(
         curl.ptr,  url);
 }
@@ -57,20 +56,14 @@ long int CurlServiceConnector::post_call(
     const std::string& method, const std::string& json) const {
     __CURL_SERVICE_CONNECTOR_INTERNAL__::auto_curl curl;
     std::string url = _address + "/" + method; 
-
-    curl_easy_setopt(curl.ptr, CURLOPT_CUSTOMREQUEST, "POST");
-
+    curl_easy_setopt(curl.ptr, CURLOPT_POST, 1);
+    
     struct curl_slist *headers = NULL;
-    char agent[1024] = { 0, };
-    agent[sizeof agent - 1] = 0;
-    curl_easy_setopt(curl.ptr, CURLOPT_USERAGENT, agent);
 
-    headers = curl_slist_append(headers, "Expect:");
     headers = curl_slist_append(headers,
                                 "Content-Type: application/json");
     curl_easy_setopt(curl.ptr, CURLOPT_HTTPHEADER, headers);
-
-    curl_easy_setopt(curl.ptr, CURLOPT_POSTFIELDS, json);
+    curl_easy_setopt(curl.ptr, CURLOPT_POSTFIELDS, json.c_str());
     curl_easy_setopt(curl.ptr, CURLOPT_POSTFIELDSIZE, -1L);
   
     return __CURL_SERVICE_CONNECTOR_INTERNAL__::perform_call(

@@ -26,7 +26,7 @@ std::ostream& operator<<(std::ostream& os, const Survey& survey) {
 
 std::ostream& operator<<(std::ostream& os, const SurveyError& error) {
     os << "{"
-       << "\"message\":" << error.message << ","
+       << "\"message\":\"" << error.message << "\","
        << "\"timestamp\":" << error.timestamp << "}";
     return os;
 }

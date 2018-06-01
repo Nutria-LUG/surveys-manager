@@ -9,6 +9,7 @@ surveys_manager_SOURCES = \
 
 surveys_manager_LDADD = -lsqlite3 -lcurl
 surveys_manager_CXXFLAGS = -std=c++14
+
 # Some usefull notes are reported below.
 # 01. To add an existing library use -l options
 #      sourvays-manager_LDADD =  -lib

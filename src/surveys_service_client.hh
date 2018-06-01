@@ -16,7 +16,8 @@
 
 /*!
  * \file      surveys_service_client.hh
- * \brief     This file contains the service client used to send surveys to the server.
+ * \brief     This file contains the service client used to send
+ *            surveys to the server.
  * \copyright GNU Public License.
  * \author    NutriaLUG
  *
@@ -25,13 +26,15 @@
  * connection with a remote server.
  */
 
-#ifndef SURVEYS_SERVICE_CLIENT_INCLUDE_GUARD_HH
-#define SURVEYS_SERVICE_CLIENT_INCLUDE_GUARD_HH 1
-
 #include <list>
 #include "survey.hh"
 #include "curl_service_connector.hh"
 
+
+#ifndef SURVEYS_SERVICE_CLIENT_INCLUDE_GUARD_HH
+#define SURVEYS_SERVICE_CLIENT_INCLUDE_GUARD_HH 1
+
+#define SAVED_DATA_CODE 201
 
 /*!
  * \brief This is the service celient used to send errors and surveys
@@ -71,6 +74,7 @@ public:
      * \return True if operation success, false otherwise.
      */
     bool send_data(const std::list<SurveyError>& survey_errors) const;
+
 private:
     SurveysServiceClient();
     /*! Private not implemented. */
@@ -78,7 +82,8 @@ private:
     /*! Private not implemented. */
     SurveysServiceClient(const SurveysServiceClient&&);
 
-    const std::string _SEND_DATA_METHOD = "SaveData";
+    const std::string _SEND_DATA_METHOD = "openair/api/survey";
+    const std::string _SEND_ERROR_METHOD = "openair/api/error";
     CurlServiceConnector *_service_connector;
 };
 

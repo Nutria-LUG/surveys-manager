@@ -1,4 +1,5 @@
 #include <sstream>
+#include <iostream>
 #include "surveys_service_client.hh"
 
 SurveysServiceClient::SurveysServiceClient(
@@ -21,14 +22,8 @@ bool SurveysServiceClient::send_data(
     }
     ss << "]";
 
-    bool ret = true;
-    try {
-        _service_connector -> post_call(_SEND_DATA_METHOD, ss.str());
-    } catch(...) {
-        ret = false;
-    }
-    
-    return ret;
+    return _service_connector ->
+        post_call(_SEND_DATA_METHOD, ss.str()) == SAVED_DATA_CODE;
 }
 
 bool SurveysServiceClient::send_data(
@@ -45,14 +40,9 @@ bool SurveysServiceClient::send_data(
         ss << *itr;
     }
     ss << "]";
-    
-    bool ret = true;
-    try {
-        _service_connector -> post_call(_SEND_DATA_METHOD, ss.str());
-    } catch(...) {
-        ret = false;
-    }
-    
-    return ret;;
+
+    return _service_connector ->
+        post_call(_SEND_ERROR_METHOD, ss.str()) == SAVED_DATA_CODE;
+
 }
 

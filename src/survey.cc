@@ -10,13 +10,14 @@ Survey::Survey(unsigned int survey_id,
       value(survey_value),
       timestamp(survey_timestamp) {}
 SurveyError::SurveyError(unsigned int error_id,
-                         const std::string& error_value,
+                         const std::string& error_message,
                          time_t error_timestamp)
-    : id(error_id), value(error_value), timestamp(error_timestamp) { }
+    : id(error_id),
+      message(error_message),
+      timestamp(error_timestamp) { }
 
 std::ostream& operator<<(std::ostream& os, const Survey& survey) {
     os << "{"
-       << "\"id\":" << survey.id << ","
        << "\"sensor\":" << survey.sensor << ","
        << "\"value\":" << survey.value << ","
        << "\"timestamp\":" << survey.timestamp << "}";
@@ -25,8 +26,7 @@ std::ostream& operator<<(std::ostream& os, const Survey& survey) {
 
 std::ostream& operator<<(std::ostream& os, const SurveyError& error) {
     os << "{"
-       << "\"id\":" << error.id << ","
-       << "\"value\":" << error.value << ","
+       << "\"message\":" << error.message << ","
        << "\"timestamp\":" << error.timestamp << "}";
     return os;
 }

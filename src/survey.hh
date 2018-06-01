@@ -67,7 +67,7 @@ struct SurveyError {
     /*! Id of the error in the database. */
     unsigned int id;
     /*! String that represent or describe the error. */
-    std::string  value;
+    std::string  message;
     /*! Timestamp of the error. */
     time_t       timestamp;
 

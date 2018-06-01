@@ -30,6 +30,7 @@
 #include <iostream>
 #include <list>
 #include <iterator>
+#include <curl/curl.h>
 #include "configuration.hh"
 #include "surveys_provider.hh"
 #include "curl_service_connector.hh"
@@ -43,7 +44,7 @@ void send_surveys(SqliteSurveysProvider& provider,
     surveys = provider.get_surveys(TOP);
     while(surveys.size() > 0) {
         if(!service_client.send_data(surveys)) {
-            throw "Cannot send data to server";
+            throw "Cannot save surveys";
         }
         provider.remove_data(surveys);
         surveys = provider.get_surveys(TOP);
@@ -55,15 +56,26 @@ void send_errors(SqliteSurveysProvider& provider,
     std::list<SurveyError> errors;
     errors = provider.get_errors(TOP);
     while(errors.size() > 0) {
-        if(!service_client.send_data(errors)) {
-            throw "Cannot send data to server";
-        };
+        if(service_client.send_data(errors)) {
+            throw "Cannot save errors";
+        }
         provider.remove_data(errors);
         errors = provider.get_errors(TOP);
     }
 }
 
-int main() {    
+struct auto_curl {
+    auto_curl() {
+        curl_global_init(CURL_GLOBAL_ALL);
+    }
+    ~auto_curl() {
+        curl_global_cleanup();
+    }
+};
+
+int main() {
+    auto_curl auto_curl_initialize;
+    
     auto configuration = get_configuration();
     CurlServiceConnector connector(configuration.service_address);
     SurveysServiceClient service_client(&connector);

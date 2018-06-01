@@ -16,7 +16,8 @@
 
 /*!
  * \file      surveys_service_client.hh
- * \brief     This file contains the service client used to send surveys to the server.
+ * \brief     This file contains the service client used to send
+ *            surveys to the server.
  * \copyright GNU Public License.
  * \author    NutriaLUG
  *
@@ -25,7 +26,6 @@
  * connection with a remote server.
  */
 
-#include <curl/curl.h>
 #include<string>
 
 #ifndef CURL_SERVICE_CONNECTOR_INCLUDE_GUARD_HH
@@ -36,15 +36,14 @@ public:
     CurlServiceConnector(const std::string& address);
     ~CurlServiceConnector();
 
-    void post_call(const std::string& method,
-                   const std::string& params) const;
-    void get_call(const std::string& method,
-                  const std::string& params) const;
+    long int post_call(const std::string& method,
+                       const std::string& params) const;
+    long int get_call(const std::string& method,
+                      const std::string& json) const;
 private:
     CurlServiceConnector();
     CurlServiceConnector(const CurlServiceConnector&);
     CurlServiceConnector(const CurlServiceConnector&&);
     std::string _address;
-    CURL *_curl;
 };
 #endif

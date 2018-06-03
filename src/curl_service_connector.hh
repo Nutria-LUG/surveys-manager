@@ -66,29 +66,114 @@ struct HttpResponse {
     ~HttpResponse();
 };
 
+/*!
+ * \brief This class is used to perform http requests through libcurl.
+ */
 class CurlServiceConnector {
 public:
-    
+    /*!
+     * \brief Constructor with one parameter.
+     * \param address - Address of the service to call.
+     *
+     * Initialize the connector with the address passed as parameter.
+     */    
     CurlServiceConnector(const std::string& address);
+    /*! Default destructor. */
     ~CurlServiceConnector();
 
+    /*!
+     * Perform a POST http call at the method passed as parameter, to
+     * the service specified in the constructor.
+     * \param method - Method to call.
+     * \return The http response structure.
+     *
+     * This method perform a call to the service specified in the
+     * constructor. It throws exception if curl perform function
+     * return a value different from CURLE_OK. Exception thrown is
+     * a const char* that contains the message.
+     */
     HttpResponse post_call(const std::string& method) const;
-    HttpResponse post_call(const std::string& method,
-                           const std::string& params) const;
 
+    /*!
+     * Perform a POST http call at the method passed as parameter, to
+     * the service specified in the constructor with the parameters
+     * passed.
+     * \param method - Method to call.
+     * \param json   - JSON parameters to pass to the call.
+     * \return The http response structure.
+     *
+     * This method perform a call to the service specified in the
+     * constructor. It throws exception if curl perform function
+     * return a value different from CURLE_OK. Exception thrown is
+     * a const char* that contains the message.
+     */
+    HttpResponse post_call(const std::string& method,
+                           const std::string& json) const;
+
+    /*!
+     * Perform a GET http call at the method passed as parameter, to
+     * the service specified in the constructor.
+     * \param method - Method to call.
+     * \return The http response structure.
+     *
+     * This method perform a call to the service specified in the
+     * constructor. It throws exception if curl perform function
+     * return a value different from CURLE_OK. Exception thrown is
+     * a const char* that contains the message.
+     */
     HttpResponse get_call(const std::string& method) const;
+
+    /*!
+     * Perform a GET http call at the method passed as parameter, to
+     * the service specified in the constructor with the parameters
+     * passed.
+     * \param method - Method to call.
+     * \param params - String that contains GET parameters: in the
+     *                 format key1=value1&key2=value2 ...
+     * \return The http response structure.
+     *
+     * This method perform a call to the service specified in the
+     * constructor. It throws exception if curl perform function
+     * return a value different from CURLE_OK. Exception thrown is
+     * a const char* that contains the message.
+     */
     HttpResponse get_call(const std::string& method,
-                      const std::string& json) const;
+                          const std::string& params) const;
 
 private:
 
+    /*!
+     * \brief Gets the url from method string.
+     * \param method - Method to call through http.
+     * \return A string that represent the url to call through curl.
+     *
+     * Private utility method used to get url from mehtod. It concats
+     * service address with method putting the right '/'.
+     */
     std::string _get_url(const std::string& method) const;
+
+    /*!
+     * \brief Gets the url from method string.
+     * \param method - Method to call through http.
+     * \param params - GETS parameters to add.
+     * \return A string that represent the url to call through curl
+     *         with the parameters specified.
+     *
+     * Private utility method used to get url from mehtod. It concats
+     * service address and GET parameters passed, putting the right
+     * separator between theme.
+     */
     std::string _get_url(const std::string& method,
                          const std::string& params) const;
-    
+
+    /*! Private not implemented */
     CurlServiceConnector();
+    /*! Private not implemented */
     CurlServiceConnector(const CurlServiceConnector&);
+    /*! Private not implemented */
     CurlServiceConnector(const CurlServiceConnector&&);
+
+    /*! Host address to call. */
     std::string _address;
 };
 

@@ -78,7 +78,9 @@ int main() {
     
     auto configuration = get_configuration();
     CurlServiceConnector connector(configuration.service_address);
-    SurveysServiceClient service_client(&connector);
+    SurveysServiceClient service_client(
+        &configuration,
+        &connector);
     SqliteSurveysProvider provider(configuration.database_path);
     try {
         send_surveys(provider, service_client);

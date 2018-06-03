@@ -2,11 +2,12 @@
 #include "surveys_service_client.hh"
 
 SurveysServiceClient::SurveysServiceClient(
+    const ConfigurationData *configuration,
     CurlServiceConnector *service_connector)
-    : _service_connector(service_connector) { }
+    : _configuration(configuration),
+      _service_connector(service_connector) { }
 
 SurveysServiceClient::~SurveysServiceClient() { }
-#include<iostream>
 
 bool SurveysServiceClient::send_data(
     const std::list<Survey>& surveys) const {
@@ -22,8 +23,10 @@ bool SurveysServiceClient::send_data(
     }
     ss << "]";
 
-    return _service_connector ->
-        post_call(_SEND_DATA_METHOD, ss.str()) == SAVED_DATA_CODE;
+    auto response = _service_connector -> post_call(
+        _configuration -> send_data_method,
+        ss.str());
+    return response.http_code == _SUCCESS_CODE;
 }
 
 bool SurveysServiceClient::send_data(
@@ -40,7 +43,8 @@ bool SurveysServiceClient::send_data(
         ss << *itr;
     }
     ss << "]";
-    return _service_connector ->
-        post_call(_SEND_ERROR_METHOD, ss.str()) == SAVED_DATA_CODE;
+    auto response = _service_connector -> post_call(
+        _configuration -> send_errors_method,
+        ss.str());
+    return response.http_code == _SUCCESS_CODE;
 }
-

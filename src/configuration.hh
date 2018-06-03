@@ -1,4 +1,4 @@
-/* Survey Manager is used to send surveys to a web server.
+/* openair is an air quality system monitoring. 
  * Copyright (C) 2018 Gabriele Labita
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,7 +57,29 @@ std::string get_configuration_file_path();
  * configuration file.
  */
 #define DATABASE_PATH_KEY    "data_base_path"
+
+/*!
+ * This macro represent the key value of the service address.
+ */
 #define SERVICE_ADDRESS_KEY  "service_address"
+
+/*!
+ * This macro represent the key value of the method used to register
+ * a client in the vpn.
+ */
+#define VPN_REGISTRATION_METHOD_KEY "vpn_registration_method"
+
+/*!
+ * This macro represent the key value of the method used to send data
+ * to the service
+ */
+#define SEND_DATA_METHOD_KEY "send_data_method"
+
+/*!
+ * This macro represent the key value of the method used to send errors
+ * to the service
+ */
+#define SEND_ERRORS_METHOD_KEY "send_errors_method"
 
 /*!
  * Data struct that contains the configuration informations.
@@ -69,8 +91,18 @@ struct ConfigurationData {
      */
     std::string database_path;
 
+    /*! Address of the remote service. */
     std::string service_address;
 
+    /*! Name of the method to call to register a client in the vpn. */
+    std::string vpn_registration_method;
+
+    /*! Name of the method to call to send surveys data. */
+    std::string send_data_method;
+
+    /*! Name of the method to call to send errors. */
+    std::string send_errors_method;
+    
     /*! Default constructor. */
     ConfigurationData();
 

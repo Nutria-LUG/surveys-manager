@@ -63,6 +63,15 @@ std::istream& operator>>(std::istream& is,
         } else if(key == SERVICE_ADDRESS_KEY) {
             config.service_address =
                 __CONFIGURATION__INTERNAL__NS__::trim(value);
+        } else if(key == VPN_REGISTRATION_METHOD_KEY) {
+            config.vpn_registration_method =
+                __CONFIGURATION__INTERNAL__NS__::trim(value);
+        } else if(key == SEND_DATA_METHOD_KEY) {
+            config.send_data_method =
+                __CONFIGURATION__INTERNAL__NS__::trim(value);
+        } else if(key == SEND_ERRORS_METHOD_KEY) {
+            config.send_errors_method =
+                __CONFIGURATION__INTERNAL__NS__::trim(value);
         }
     }    
     return is;

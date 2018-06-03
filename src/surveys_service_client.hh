@@ -28,13 +28,12 @@
 
 #include <list>
 #include "survey.hh"
+#include "configuration.hh"
 #include "curl_service_connector.hh"
 
 
 #ifndef SURVEYS_SERVICE_CLIENT_INCLUDE_GUARD_HH
 #define SURVEYS_SERVICE_CLIENT_INCLUDE_GUARD_HH 1
-
-#define SAVED_DATA_CODE 201
 
 /*!
  * \brief This is the service celient used to send errors and surveys
@@ -47,9 +46,15 @@ class SurveysServiceClient {
 public:
     /*!
      * \brief Default constructor.
+     *
+     * \param configuration     - Configuration structure that
+     *                            contains the method's names to call.
+     * \param service_connector - Connector used to perform get and/or
+     *                            post calls.
      */
-    SurveysServiceClient(CurlServiceConnector *service_connector);
-
+    SurveysServiceClient(const ConfigurationData *configuration,
+                         CurlServiceConnector *service_connector);
+    
     /*!
      * \brief Virtual detructor.
      */
@@ -82,8 +87,22 @@ private:
     /*! Private not implemented. */
     SurveysServiceClient(const SurveysServiceClient&&);
 
-    const std::string _SEND_DATA_METHOD = "openair/api/survey";
-    const std::string _SEND_ERROR_METHOD = "openair/api/error";
+    /*!
+     * This is the http code use for succesfull calls. If a call does
+     * not fail on server side, this code to have been returned.
+     */
+    const HttpResponse::http_code_t _SUCCESS_CODE = 201;
+    
+    /*!
+     * This is the configuration object. It is needed because contains
+     * the mehtod's names.
+     */
+    const ConfigurationData *_configuration;
+
+    /*!
+     * This is the service connector used to perform post and get
+     * calls.
+     */
     CurlServiceConnector *_service_connector;
 };
 

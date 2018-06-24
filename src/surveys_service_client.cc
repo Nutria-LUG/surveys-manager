@@ -1,9 +1,11 @@
 #include <sstream>
+#include <libopenair/curl_service_connector.hh>
+#include <libopenair/configuration.hh>
 #include "surveys_service_client.hh"
 
 SurveysServiceClient::SurveysServiceClient(
-    const ConfigurationData *configuration,
-    CurlServiceConnector *service_connector)
+    const openair::ConfigurationData *configuration,
+    openair::CurlServiceConnector *service_connector)
     : _configuration(configuration),
       _service_connector(service_connector) { }
 

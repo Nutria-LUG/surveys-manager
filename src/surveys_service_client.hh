@@ -27,10 +27,9 @@
  */
 
 #include <list>
+#include <libopenair/curl_service_connector.hh>
+#include <libopenair/configuration.hh>
 #include "survey.hh"
-#include "configuration.hh"
-#include "curl_service_connector.hh"
-
 
 #ifndef SURVEYS_SERVICE_CLIENT_INCLUDE_GUARD_HH
 #define SURVEYS_SERVICE_CLIENT_INCLUDE_GUARD_HH 1
@@ -52,8 +51,9 @@ public:
      * \param service_connector - Connector used to perform get and/or
      *                            post calls.
      */
-    SurveysServiceClient(const ConfigurationData *configuration,
-                         CurlServiceConnector *service_connector);
+    SurveysServiceClient(
+        const openair::ConfigurationData *configuration,
+        openair::CurlServiceConnector *service_connector);
     
     /*!
      * \brief Virtual detructor.
@@ -81,6 +81,7 @@ public:
     bool send_data(const std::list<SurveyError>& survey_errors) const;
 
 private:
+    /*! Private not implemented. */
     SurveysServiceClient();
     /*! Private not implemented. */
     SurveysServiceClient(const SurveysServiceClient&);
@@ -91,19 +92,19 @@ private:
      * This is the http code use for succesfull calls. If a call does
      * not fail on server side, this code to have been returned.
      */
-    const HttpResponse::http_code_t _SUCCESS_CODE = 201;
+    const openair::HttpResponse::http_code_t _SUCCESS_CODE = 201;
     
     /*!
      * This is the configuration object. It is needed because contains
      * the mehtod's names.
      */
-    const ConfigurationData *_configuration;
+    const openair::ConfigurationData *_configuration;
 
     /*!
      * This is the service connector used to perform post and get
      * calls.
      */
-    CurlServiceConnector *_service_connector;
+    openair::CurlServiceConnector *_service_connector;
 };
 
 #endif

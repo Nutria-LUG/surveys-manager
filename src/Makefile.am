@@ -1,13 +1,14 @@
 bin_PROGRAMS = surveys-manager
 surveys_manager_SOURCES = \
 	main.cc \
-	curl_service_connector.cc\
 	survey.cc \
+	survey.hh \
 	surveys_provider.cc\
+	surveys_provider.hh\
 	surveys_service_client.cc \
-	configuration.cc
+	surveys_service_client.hh
 
-surveys_manager_LDADD = -lsqlite3 -lcurl
+surveys_manager_LDADD = -lsqlite3 -lopenair
 surveys_manager_CXXFLAGS = -std=c++14
 
 # Some usefull notes are reported below.

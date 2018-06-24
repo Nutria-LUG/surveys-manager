@@ -28,12 +28,12 @@
  */
 
 #include <iostream>
+#include <fstream>
 #include <list>
 #include <iterator>
-#include <curl/curl.h>
-#include "configuration.hh"
+#include <libopenair/configuration.hh>
+#include <libopenair/curl_service_connector.hh>
 #include "surveys_provider.hh"
-#include "curl_service_connector.hh"
 #include "surveys_service_client.hh"
 
 const unsigned int TOP = 10;
@@ -64,24 +64,18 @@ void send_errors(SqliteSurveysProvider& provider,
     }
 }
 
-struct auto_curl {
-    auto_curl() {
-        curl_global_init(CURL_GLOBAL_ALL);
-    }
-    ~auto_curl() {
-        curl_global_cleanup();
-    }
-};
-
-int main() {
-    auto_curl auto_curl_initialize;
+int main() {    
+    auto config_file_path = openair::get_configuration_file_path();
+    std::fstream config_file(config_file_path);
+    openair::ConfigurationData config;
+    config_file >> config;
     
-    auto configuration = get_configuration();
-    CurlServiceConnector connector(configuration.service_address);
+    openair::CurlServiceConnector connector(
+        config.service_address);
     SurveysServiceClient service_client(
-        &configuration,
+        &config,
         &connector);
-    SqliteSurveysProvider provider(configuration.database_path);
+    SqliteSurveysProvider provider(config.database_path);
     try {
         send_surveys(provider, service_client);
     } catch(const char* ex){

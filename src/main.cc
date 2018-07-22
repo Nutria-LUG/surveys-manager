@@ -18,7 +18,8 @@
  * \file      main.cc
  * \brief     This is the main file of surveys manager.
  * \copyright GNU Public License.
- * \author    NutriaLUG
+ * \author    Gabriele Labita
+ *            <gabriele.labita@linux.it>
  *
  * SurveysManager is a program used to send the surveys saved in the
  * sqlite3 data base to the server. It sends logged surveys and errors.

@@ -1,9 +1,19 @@
+SURVEYS MANAGER INSTALLATION
+============================
 
-     #USEFULL CONFIGURATION OPTIONS
+# Dependencies
 
-     Give a prefix to the name of the project:
-      > configure --program-prefix put_prefix_here
+ This software needs following libraries to run:
+   * libsqlite3: in debian distribution, install the libsqlite3-dev
+                 package through aptitude.
+   * libopenair: see relative project repository for the installation
+                 instructions.
 
-     Perform a cross compilation
-      > configure --host [hostsystem] --target [target-system]
+ To build the project you need: autotools and c++14.
 
+# Build and install
+
+ Run following commands:
+   > ./configure
+   > make
+   > sudo make install

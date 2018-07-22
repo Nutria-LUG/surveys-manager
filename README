@@ -1,0 +1,43 @@
+SURVEYS MANAGER
+===============
+
+Surveys manager is the component of the openair system used to send
+data to the server.
+
+# Data
+
+There are two kinds of data sent: surveys and errors. For performance
+purpose, data are serialized in blocks of 10 rows at time.
+
+## Surveys
+ Surveys are the result of the sensor-reader and sensor-logger
+ operations, they are read from sqlite3 data base and sent to
+ the server as JSON object with following fields:
+ 
+   * sensor    - Code to identify the sensor that perform the survey,
+                 see Sensors section for more informations.
+   * value     - Value of the surveys as number.
+   * timestamp - Timestamp of the surveys taken at the read time.
+
+## Errors
+ Errors are logged in the error table of the openair.db. Data about
+ errors are taken and sent to the server to allows administrators to
+ be informed.
+
+ Erros are sent in JSON object with following fields:
+
+   * message   - Message of the error as a string.
+   * timestamp - Timestamp of the moment of the error.
+
+# Sensors
+ Sensors are coded with numbers for memory optimization purposes, use
+ following schema:
+   * 0: PM10 sensor
+   * 1: PM2.5 sensor
+   * 2: temperature sensor
+   * 3: humidity sensor
+   * 4: pression sensor
+
+ IMPORTANT: This software component does not use that informations,
+            this send the data from the data base without making any
+            check. This is documented for informations purpose.

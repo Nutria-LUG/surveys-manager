@@ -35,7 +35,6 @@ namespace __SQLITE__INTERNAL__ {
         res -> push_back(SurveyError(id, argv[1], timestamp));
         return 0;
     };
-
     
     template<class ForwardIterator>
     void remove_data(ForwardIterator begin,
@@ -75,13 +74,11 @@ namespace __SQLITE__INTERNAL__ {
 
 SqliteSurveysProvider::SqliteSurveysProvider(
     const std::string& db_path)
-    : _db(__SQLITE__INTERNAL__::create(db_path)) {}
-
+    : _db(__SQLITE__INTERNAL__::create(db_path)) { }
 
 SqliteSurveysProvider::~SqliteSurveysProvider() {
     sqlite3_close(_db);
 }
-
 
 std::list<Survey> SqliteSurveysProvider::get_surveys(
     unsigned int top) const {
@@ -124,7 +121,6 @@ std::list<SurveyError> SqliteSurveysProvider::get_errors(
     }
     return std::move(errors);
 }
-
 
 void SqliteSurveysProvider::remove_data(
     const std::list<Survey>& survays) {

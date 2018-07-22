@@ -19,7 +19,8 @@
  * \brief     This file contains the service client used to send
  *            surveys to the server.
  * \copyright GNU Public License.
- * \author    NutriaLUG
+ * \author    Gabriele Labita
+ *            <gabriele.labita@linux.it>
  *
  * This file contains the service client used to send surveys to the
  * server. A service client is an object that perform the data

@@ -18,7 +18,8 @@
  * \file      survey.hh
  * \brief     File containing suverys data structure.
  * \copyright GNU Public License.
- * \author    NutriaLUG
+ * \author    Gabriele Labita
+ *            <gabriele.labita@linux.it>
  *
  * This file contains the definition of the data structure used as
  * models for surveys and errors.
